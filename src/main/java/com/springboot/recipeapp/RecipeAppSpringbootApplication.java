@@ -16,6 +16,6 @@ public class RecipeAppSpringbootApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		log.info("Appliction Started");
+		log.info("Appliction Started...");
 	}
 }
