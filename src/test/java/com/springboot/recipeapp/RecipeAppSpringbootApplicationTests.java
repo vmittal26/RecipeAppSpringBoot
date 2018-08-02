@@ -12,5 +12,4 @@ public class RecipeAppSpringbootApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
 }
