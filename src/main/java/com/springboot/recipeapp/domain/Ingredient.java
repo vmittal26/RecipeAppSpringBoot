@@ -9,10 +9,16 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity(name="Ingredient")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode(of ="id")
 public class Ingredient {
 
 	@Id
@@ -21,10 +27,16 @@ public class Ingredient {
 	private String description;
 	private BigDecimal amount;
 
+    public Ingredient(String description, BigDecimal amount, UnitOfMeasure unitOfMeasure, Recipe recipe) {
+	        this.description = description;
+	        this.amount = amount;
+	        this.unitOfMeasure = unitOfMeasure;
+	        this.recipe = recipe;
+	}
 	@ManyToOne
 	private Recipe recipe;
 	
-	@OneToOne(mappedBy= "ingredient")
+	@OneToOne
 	private UnitOfMeasure unitOfMeasure;
 	
 	

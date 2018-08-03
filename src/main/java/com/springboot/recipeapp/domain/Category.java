@@ -1,5 +1,6 @@
 package com.springboot.recipeapp.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -20,6 +21,8 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	private String description;
+	
 	@ManyToMany(mappedBy="categories")
-	private Set<Recipe> recipes;
+	private Set<Recipe> recipes = new HashSet<>();
 }

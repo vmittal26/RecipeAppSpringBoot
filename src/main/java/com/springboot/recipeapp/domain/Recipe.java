@@ -1,5 +1,6 @@
 package com.springboot.recipeapp.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,10 +15,16 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity(name="Recipe")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode(of ="id")
 public class Recipe {
 	
 	@Id
@@ -30,6 +37,10 @@ public class Recipe {
 	private String source;
 	private String direction;
 	private DifficultyEnum difficulty;
+	private String url;
+	  
+	@Lob
+	private String directions;
 	
 	@Lob
 	private Byte[] image;
@@ -37,12 +48,20 @@ public class Recipe {
 	private Notes notes;
 	
 	@OneToMany(mappedBy = "recipe",cascade = CascadeType.ALL)
-	private Set<Ingredient> ingredients;
+	private Set<Ingredient> ingredients = new HashSet<>();;
 	
 	@ManyToMany
 	@JoinTable(name="RECIPE_CATEGORY",
 	joinColumns=@JoinColumn(name="RECIPE_ID"),
     inverseJoinColumns=@JoinColumn(name="CATEGORY_ID"))
-	private Set<Category> categories;
+	private Set<Category> categories = new HashSet<>();
+
+	public void addIngredient(Ingredient ingredient) {
+		ingredients.add(ingredient);
+	}
 	
+	public void setNotes(Notes notes) {
+		this.notes = notes;
+		notes.setRecipe(this);
+	}
 }
