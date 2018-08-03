@@ -1,6 +1,7 @@
 package com.springboot.recipeapp.service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
@@ -21,6 +22,10 @@ public class RecipeServiceImpl {
 		Set<Recipe> recipeSet = new HashSet<>();
 		recipeCrudRepository.findAll().iterator().forEachRemaining(recipeSet::add);
 		return recipeSet;
+	}
+	
+	public Optional<Recipe> getRecipeById(Long id) {
+		return recipeCrudRepository.findById(id);
 	}
 	
 }
